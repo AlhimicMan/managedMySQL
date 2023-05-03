@@ -1,0 +1,67 @@
+log: /mysync/mysync.log
+loglevel: Debug
+
+lockfile: /mysync/mysync.lock
+emergefile: /mysync/mysync.emerge
+resetupfile: /mysync/mysync.resetup
+
+resetup_crashed_hosts: False
+db_timeout: 2s
+db_lost_check_timeout: 5s
+tick_interval: 5s
+healthcheck_interval: 5s
+info_file_handler_interval: 5s
+dcs_wait_timeout: 30s
+critical_disk_usage: 95.00
+not_critical_disk_usage: 94.76
+disable_semi_sync_replication_on_maintenance: true
+keep_super_writable_on_critical_disk_usage: true
+db_set_ro_timeout: 30s
+db_set_ro_force_timeout: 60s
+priority_choice_max_lag: 60s
+offline_mode_enable_lag: 86400s
+offline_mode_disable_lag: 300s
+disable_set_readonly_on_lost: False
+exclude_users:
+  - 'repl'
+  - 'admin'
+  - 'monitor'
+  - 'event_scheduler'
+
+semi_sync: true
+rpl_semi_sync_master_wait_for_slave_count: 1
+semi_sync_enable_lag: 33554432
+
+failover: true
+failover_cooldown: 3600s
+failover_delay: 60s
+inactivation_delay: 120s
+
+zookeeper:
+  session_timeout: 10s
+  namespace: /mysql/cluster_id_1
+  hosts:
+    - zk1:2181
+    - zk2:2181
+#    - zk02.db.company.net:2181
+#    - zk03.db.company.net:2181
+
+mysql:
+  user: admin
+  password: mysql_admin
+  #  ssl_ca: /etc/mysql/ssl/allCAs.pem
+  replication_connect_retry: 10
+  replication_retry_count: 0
+  replication_heartbeat_period: 2
+  replication_port: 3306
+  replication_user: repl
+  replication_password: repl-password
+  #  replication_ssl_ca: /etc/mysql/ssl/allCAs.pem
+  port: 3306
+
+stream_from_reasonable_lag: 5m
+stream_from_max_catchup_wait: 5m
+
+replication_repair_aggressive_mode: False
+replication_repair_cooldown: 60s
+replication_repair_max_attempts: 3
